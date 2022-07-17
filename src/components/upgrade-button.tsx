@@ -1,19 +1,17 @@
-import React from "react"
-import { UpgradeButtonProps } from "../interfaces/upgrade-button.interface"
-import { GenericButtonStyled } from "./styled/generic-button.styled"
-import { TextItemContainer } from "./styled/text-item-container.styled"
+import { UpgradeButtonProps } from "../interfaces/upgrade-button.interface";
+import { GenericButtonStyled } from "./styled/generic-button.styled";
+import { TextItemContainer } from "./styled/text-item-container.styled";
 
+const UpgradeButton = ({
+  upgradeCost,
+  text,
+  callback,
+  upgradeCallback,
+  disabled = false,
+  purchased = false,
+}: UpgradeButtonProps) => {
 
-export const UpgradeButton: React.FC<UpgradeButtonProps> = (props) => {
-  const {
-    upgradeCost,
-    text,
-    callback,
-    upgradeCallback,
-    disabled = false,
-    purchased = false,
-  } = props
-  const buyText = purchased ? "Bought" : `-${upgradeCost}`
+  const buyText = purchased ? "Bought" : `-${upgradeCost}`;
 
   return (
     <TextItemContainer>
@@ -21,12 +19,14 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = (props) => {
       <GenericButtonStyled
         disabled={disabled}
         onClick={() => {
-          callback(upgradeCost)
-          upgradeCallback()
+          callback(upgradeCost);
+          upgradeCallback();
         }}
       >
         {buyText}
       </GenericButtonStyled>
     </TextItemContainer>
-  )
-}
+  );
+};
+
+export default UpgradeButton;
