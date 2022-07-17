@@ -4,14 +4,15 @@ import CountButton from "../components/count-button/count-button";
 import { ResetButtonStyled } from "../components/styled/reset-button.styled";
 import { TextGeneralContainer } from "../components/styled/text-general-container.styled";
 import { TextItemContainer } from "../components/styled/text-item-container.styled";
-import UpgradeButton  from "../components/upgrade-button";
+import UpgradeButton from "../components/upgrade-button";
 import { purchases } from "../data/purchases.data";
 import { upgrades } from "../data/upgrades.data";
 import { PurchaseInterface } from "../interfaces/purchase.interface";
-import { InitialState } from "../utils/initial";
+import { GetInitialState } from "../utils/initial";
+import { STORAGE_KEYS } from "../utils/storage/constants";
+import { Storage } from "../utils/storage/storage";
 
-
-const initialState = InitialState;
+const initialState = GetInitialState();
 
 const Home = () => {
   const [totalCount, setTotalCount] = useState(initialState.totalCount);
@@ -25,8 +26,14 @@ const Home = () => {
   >(initialState.purchasesPurchased);
 
   const increaseCount = (delta: number) => {
-    setTotalCount(totalCount + Math.round(delta * 100) / 100);
-    setCount(count + Math.round(delta * 100) / 100);
+    const currentTotalCount = totalCount + Math.round(delta * 100) / 100;
+    const currentCount = count + Math.round(delta * 100) / 100;
+
+    setTotalCount(currentTotalCount);
+    setCount(currentCount);
+
+    Storage.setData(STORAGE_KEYS.TOTAL_COUNT, currentTotalCount);
+    Storage.setData(STORAGE_KEYS.COUNT, currentCount);
   };
 
   const decreaseCount = useCallback(
@@ -42,7 +49,9 @@ const Home = () => {
     setDelta(initialState.delta);
     setUpgradesPurchased(initialState.upgradesPurchased);
     setPurchasesPurchased(initialState.purchasesPurchased);
-    console.log("to", totalCount);
+
+    Storage.removeData(STORAGE_KEYS.COUNT);
+    Storage.removeData(STORAGE_KEYS.TOTAL_COUNT);
   };
 
   const upgradeMarkup = upgrades.map((upgrade) => {
@@ -55,7 +64,7 @@ const Home = () => {
         upgradeCallback={() =>
           setUpgradesPurchased([upgrade.id, ...upgradesPurchased])
         }
-        disabled={purchased || upgrade.cost > count}
+        disabled={upgrade.cost > count}
         purchased={purchased}
         upgradeCost={upgrade.cost}
         text={upgrade.label}
@@ -106,7 +115,7 @@ const Home = () => {
           upgradeCallback={callbackLogic}
           disabled={count - costIncrease < 0}
           upgradeCost={costIncrease}
-          text={`${purchase.label}: +${purchase.power} TP (${totalOwned}) `}
+          text={`${purchase.label}: +${purchase.power} AC (${totalOwned}) `}
         />
       ) : null;
     });
@@ -151,6 +160,15 @@ const Home = () => {
     };
   }, [upgradesPurchased, purchasesPurchased]);
 
+  const up = () => {
+    return (
+      <>
+        <TextItemContainer>Upgrades:</TextItemContainer>
+        {upgradeMarkup}
+      </>
+    );
+  };
+
   return (
     <div className="App">
       <br />
@@ -162,19 +180,24 @@ const Home = () => {
           Total Video Games: {Math.round(totalCount * 100) / 100}
         </TextItemContainer>
         <TextItemContainer className="count">
-          $ Money from Video Games: {Math.round(count * 100) / 100}
+          $ Money {Math.round(count * 100) / 100} 💰
         </TextItemContainer>
         <br />
-        <div>+{Math.round(delta * 100) / 100} Manual/Click</div>
-        <div>+{Math.round(totalPower * 100) / 100} TP/sec</div>
+        <br />
+        <div>+{Math.round(delta * 100) / 100} Manual/Click (M)</div>
+        <div>+{Math.round(totalPower * 100) / 100} Auto Click/sec (AC)</div>
+
+        <br />
+        <br />
+        <TextItemContainer>Workers:</TextItemContainer>
         {purchaseMarkup}
 
         <CountButton delta={delta} callback={() => increaseCount(delta)} />
         <br />
-        {totalCount > 100 ? upgradeMarkup : ""}
+        {totalCount > 100 ? up() : ""}
       </TextGeneralContainer>
     </div>
   );
-}
+};
 
-export default Home
+export default Home;

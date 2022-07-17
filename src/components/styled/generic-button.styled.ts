@@ -8,10 +8,10 @@ export const GenericButtonStyled = styled(Button)`
   border: 2px  solid !important;
   height: 40px;
   font-size: 1rem !important;
-  min-width: 100px;
+  min-width: 150px;
   margin-top: 20px !important;
   margin-bottom: 20px !important;
-  width: 100px;
+  width: 150px;
   margin-left: 15px !important;
 
   &:disabled {

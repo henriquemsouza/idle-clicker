@@ -11,7 +11,7 @@ const UpgradeButton = ({
   purchased = false,
 }: UpgradeButtonProps) => {
 
-  const buyText = purchased ? "Bought" : `-${upgradeCost}`;
+  const buyText = purchased ? `💰 Bought ${upgradeCost}` : `💰 ${upgradeCost}`;
 
   return (
     <TextItemContainer>

@@ -11,7 +11,7 @@ import { UpgradeInterface } from "../interfaces/upgrade.interface";
     {
       cost: 139,
       id: "designer_leader",
-      label: "Designer Leader +TP",
+      label: "Designer Leader + Manual/Click",
       unitPower: 0.05,
     },
   ]
