@@ -1,4 +1,5 @@
 import React from "react"
+import { CountButtonStyled } from "./styled/count-button.styled"
 
 interface IProps {
   delta: number
@@ -11,9 +12,10 @@ export const CountButton: React.FC<IProps> = ({
   callback,
   disabled = false,
 }) => {
+  //   +{Math.round((delta + Number.EPSILON) * 100) / 100}
   return (
-    <button onClick={callback} disabled={disabled}>
+    <CountButtonStyled onClick={callback} disabled={disabled}>
       +{Math.round((delta + Number.EPSILON) * 100) / 100}
-    </button>
+    </CountButtonStyled>
   )
 }

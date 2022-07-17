@@ -5,7 +5,7 @@ import { UpgradeInterface } from "../interfaces/upgrade.interface";
     {
       cost: 25,
       id: "Tech_Lead",
-      label: "Tech Lead + AP",
+      label: "Tech Lead + Manual/Click",
       clickPower: 0.1,
     },
     {
