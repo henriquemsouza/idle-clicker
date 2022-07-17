@@ -8,6 +8,9 @@ import { UpgradeButton } from "./components/upgrade-button";
 import { upgrades } from "./data/upgrades.data";
 import { InitialState } from "./utils/initial";
 import { PurchaseInterface } from "./interfaces/purchase.interface";
+import { ResetButtonStyled } from "./components/styled/reset-button.styled";
+import { TextGeneralContainer } from "./components/styled/text-general-container.styled";
+import { TextItemContainer } from "./components/styled/text-item-container.styled";
 
 const initialState = InitialState;
 
@@ -153,19 +156,24 @@ export default function App() {
     <div className="App">
       <br />
       <div>
-        <button onClick={reset}>Reset</button>
+        <ResetButtonStyled onClick={reset}>Reset</ResetButtonStyled>
       </div>
-      <div>Total Video Games: {Math.round(totalCount * 100) / 100}</div>
-      <div className="count">
-        $ Money from Video Games: {Math.round(count * 100) / 100}
-      </div>
-      <CountButton delta={delta} callback={() => increaseCount(delta)} />
-      <div>+{Math.round(delta * 100) / 100} AP/click</div>
-      <div>+{Math.round(totalPower * 100) / 100} TP/sec</div>
-      {purchaseMarkup}
+      <TextGeneralContainer>
+        <TextItemContainer>
+          Total Video Games: {Math.round(totalCount * 100) / 100}
+        </TextItemContainer>
+        <TextItemContainer className="count">
+          $ Money from Video Games: {Math.round(count * 100) / 100}
+        </TextItemContainer>
+        <br />
+        <div>+{Math.round(delta * 100) / 100} Manual/Click</div>
+        <div>+{Math.round(totalPower * 100) / 100} TP/sec</div>
+        {purchaseMarkup}
 
-      <br />
-      {totalCount > 100 ? upgradeMarkup : ""}
+        <CountButton delta={delta} callback={() => increaseCount(delta)} />
+        <br />
+        {totalCount > 100 ? upgradeMarkup : ""}
+      </TextGeneralContainer>
     </div>
   );
 }

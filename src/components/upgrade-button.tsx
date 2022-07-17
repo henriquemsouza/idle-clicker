@@ -1,15 +1,10 @@
 import React from "react"
+import { UpgradeButtonProps } from "../interfaces/upgrade-button.interface"
+import { GenericButtonStyled } from "./styled/generic-button.styled"
+import { TextItemContainer } from "./styled/text-item-container.styled"
 
-interface IProps {
-  upgradeCost: number
-  text: string
-  callback: (delta: number) => void
-  disabled?: boolean
-  purchased?: boolean
-  upgradeCallback: () => void
-}
 
-export const UpgradeButton: React.FC<IProps> = (props) => {
+export const UpgradeButton: React.FC<UpgradeButtonProps> = (props) => {
   const {
     upgradeCost,
     text,
@@ -21,9 +16,9 @@ export const UpgradeButton: React.FC<IProps> = (props) => {
   const buyText = purchased ? "Bought" : `-${upgradeCost}`
 
   return (
-    <div>
+    <TextItemContainer>
       {text}
-      <button
+      <GenericButtonStyled
         disabled={disabled}
         onClick={() => {
           callback(upgradeCost)
@@ -31,7 +26,7 @@ export const UpgradeButton: React.FC<IProps> = (props) => {
         }}
       >
         {buyText}
-      </button>
-    </div>
+      </GenericButtonStyled>
+    </TextItemContainer>
   )
 }
