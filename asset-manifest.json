@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/idle-clicker/static/css/main.93ce189b.css",
+    "main.js": "/idle-clicker/static/js/main.7e3ced6f.js",
+    "static/js/787.b407a47b.chunk.js": "/idle-clicker/static/js/787.b407a47b.chunk.js",
+    "index.html": "/idle-clicker/index.html",
+    "main.93ce189b.css.map": "/idle-clicker/static/css/main.93ce189b.css.map",
+    "main.7e3ced6f.js.map": "/idle-clicker/static/js/main.7e3ced6f.js.map",
+    "787.b407a47b.chunk.js.map": "/idle-clicker/static/js/787.b407a47b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93ce189b.css",
+    "static/js/main.7e3ced6f.js"
+  ]
+}
